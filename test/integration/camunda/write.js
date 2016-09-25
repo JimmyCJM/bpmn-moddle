@@ -1,11 +1,8 @@
-'use strict';
+import { assign, isFunction } from 'lodash';
 
-var assign = require('lodash/assign'),
-    isFunction = require('lodash/isFunction');
+import { createModdle } from '../../helper';
 
-var Helper = require('../../helper');
-
-var camundaPackage = require('../../fixtures/json/model/camunda');
+import camundaPackage from '../../fixtures/json/model/camunda';
 
 
 describe('bpmn-moddle - integration', function() {
@@ -14,7 +11,7 @@ describe('bpmn-moddle - integration', function() {
 
     describe('write', function() {
 
-      var moddle = Helper.createModdle({ camunda: camundaPackage });
+      var moddle = createModdle({ camunda: camundaPackage });
 
       function write(element, options, callback) {
         if (isFunction(options)) {

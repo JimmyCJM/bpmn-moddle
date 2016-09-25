@@ -14,37 +14,19 @@ module.exports = function(grunt) {
       dist: 'dist'
     },
 
-    jshint: {
-      src: [
-        ['<%=config.sources %>']
-      ],
-      gruntfile: [
-        'Gruntfile.js'
-      ],
-      options: {
-        jshintrc: true
-      }
-    },
-
-    mochaTest: {
-      test: {
-        options: {
-          reporter: 'spec',
-          require: [
-            './test/expect.js'
-          ]
-        },
-        src: [ 'test/**/*.js' ]
+    eslint: {
+      check: {
+        src: [
+          '{lib,test}/**/*.js'
+        ]
       },
-      watch: {
+      fix: {
+        src: [
+          '{lib,test}/**/*.js'
+        ],
         options: {
-          noFail: true,
-          reporter: 'spec',
-          require: [
-            './test/expect.js'
-          ]
-        },
-        src: [ 'test/**/*.js' ]
+          fix: true
+        }
       }
     },
 
@@ -54,24 +36,12 @@ module.exports = function(grunt) {
         commitMessage: 'chore(project): release v<%= version %>',
         tagMessage: 'chore(project): tag v<%= version %>'
       }
-    },
-
-    watch: {
-      test: {
-        files: [
-          '<%= config.sources %>/**/*.js',
-          '<%= config.tests %>/spec/**/*.js'
-        ],
-        tasks: [ 'mochaTest:watch' ]
-      }
     }
   });
 
   // tasks
 
-  grunt.registerTask('test', [ 'mochaTest' ]);
+  grunt.registerTask('lint', [ 'eslint:check' ]);
 
-  grunt.registerTask('auto-test', [ 'mochaTest:watch', 'watch:test' ]);
-
-  grunt.registerTask('default', [ 'jshint', 'test' ]);
+  grunt.registerTask('default', [ 'lint', 'test' ]);
 };

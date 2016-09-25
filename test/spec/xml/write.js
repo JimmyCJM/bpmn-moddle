@@ -1,15 +1,14 @@
-'use strict';
+import {
+  assign,
+  isFunction
+} from 'lodash';
 
-var assign = require('lodash/assign'),
-    isFunction = require('lodash/isFunction');
-
-var Helper = require('../../helper');
-
+import { createModdle } from '../../helper';
 
 
 describe('bpmn-moddle - write', function() {
 
-  var moddle = Helper.createModdle();
+  var moddle = createModdle();
 
 
   function write(element, options, callback) {
@@ -293,7 +292,7 @@ describe('bpmn-moddle - write', function() {
             moddle.create('bpmn:Property', { name: 'BAR' })
           ],
           resources: [
-            moddle.create('bpmn:HumanPerformer', { name: 'Walter'} )
+            moddle.create('bpmn:HumanPerformer', { name: 'Walter' } )
           ],
           dataInputAssociations: [
             moddle.create('bpmn:DataInputAssociation', { id: 'Input_1' })

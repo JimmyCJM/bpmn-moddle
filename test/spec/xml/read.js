@@ -1,20 +1,16 @@
-'use strict';
-
-var os = require('os');
-
-var Helper = require('../../helper');
+import { createModdle, readFile } from '../../helper';
 
 
 describe('bpmn-moddle - read', function() {
 
-  var moddle = Helper.createModdle();
+  var moddle = createModdle();
 
   function read(xml, root, opts, callback) {
     return moddle.fromXML(xml, root, opts, callback);
   }
 
-  function fromFile(file, root, opts, callback) {
-    var contents = Helper.readFile(file);
+  function importFile(file, root, opts, callback) {
+    var contents = readFile(file);
     return read(contents, root, opts, callback);
   }
 
@@ -28,7 +24,7 @@ describe('bpmn-moddle - read', function() {
         // given
 
         // when
-        fromFile('test/fixtures/bpmn/sub-process-flow-nodes.part.bpmn', 'bpmn:SubProcess', function(err, result) {
+        importFile('test/fixtures/bpmn/sub-process-flow-nodes.part.bpmn', 'bpmn:SubProcess', function(err, result) {
 
           var expected = {
             $type: 'bpmn:SubProcess',
@@ -55,7 +51,7 @@ describe('bpmn-moddle - read', function() {
         // given
 
         // when
-        fromFile('test/fixtures/bpmn/sub-process.part.bpmn', 'bpmn:SubProcess', function(err, result) {
+        importFile('test/fixtures/bpmn/sub-process.part.bpmn', 'bpmn:SubProcess', function(err, result) {
 
           var expected = {
             $type: 'bpmn:SubProcess',
@@ -82,7 +78,7 @@ describe('bpmn-moddle - read', function() {
         // given
 
         // when
-        fromFile('test/fixtures/bpmn/subprocess-flow-nodes-outgoing.part.bpmn', 'bpmn:Process', function(err, result) {
+        importFile('test/fixtures/bpmn/subprocess-flow-nodes-outgoing.part.bpmn', 'bpmn:Process', function(err, result) {
 
           var expectedSequenceFlow = {
             $type: 'bpmn:SequenceFlow',
@@ -132,7 +128,7 @@ describe('bpmn-moddle - read', function() {
         var file = 'test/fixtures/bpmn/timerEventDefinition.part.bpmn';
 
         // when
-        fromFile(file, 'bpmn:TimerEventDefinition', function(err, result) {
+        importFile(file, 'bpmn:TimerEventDefinition', function(err, result) {
 
           // then
           expect(result).to.jsonEqual({
@@ -154,7 +150,7 @@ describe('bpmn-moddle - read', function() {
       it('Documentation', function(done) {
 
         // when
-        fromFile('test/fixtures/bpmn/documentation.bpmn', function(err, result) {
+        importFile('test/fixtures/bpmn/documentation.bpmn', function(err, result) {
 
           // then
           expect(result).to.jsonEqual({
@@ -196,7 +192,7 @@ describe('bpmn-moddle - read', function() {
         // given
 
         // when
-        fromFile('test/fixtures/bpmn/throw-event-dataInputAssociations.part.bpmn', 'bpmn:EndEvent', function(err, result) {
+        importFile('test/fixtures/bpmn/throw-event-dataInputAssociations.part.bpmn', 'bpmn:EndEvent', function(err, result) {
 
           var expected = {
             $type: 'bpmn:EndEvent',
@@ -220,7 +216,7 @@ describe('bpmn-moddle - read', function() {
         // given
 
         // when
-        fromFile('test/fixtures/bpmn/catch-event-dataOutputAssociations.part.bpmn', 'bpmn:StartEvent', function(err, result) {
+        importFile('test/fixtures/bpmn/catch-event-dataOutputAssociations.part.bpmn', 'bpmn:StartEvent', function(err, result) {
 
           var expected = {
             $type: 'bpmn:StartEvent',
@@ -242,7 +238,7 @@ describe('bpmn-moddle - read', function() {
       it('Escalation + Error', function(done) {
 
         // when
-        fromFile('test/fixtures/bpmn/escalation-error.bpmn', function(err, result) {
+        importFile('test/fixtures/bpmn/escalation-error.bpmn', function(err, result) {
 
           // then
           expect(result).to.jsonEqual({
@@ -263,7 +259,7 @@ describe('bpmn-moddle - read', function() {
       it('ExtensionElements', function(done) {
 
         // when
-        fromFile('test/fixtures/bpmn/extension-elements.bpmn', function(err, result) {
+        importFile('test/fixtures/bpmn/extension-elements.bpmn', function(err, result) {
 
           expect(result).to.jsonEqual({
             $type: 'bpmn:Definitions',
@@ -288,7 +284,7 @@ describe('bpmn-moddle - read', function() {
         // given
 
         // when
-        fromFile('test/fixtures/bpmn/scriptTask-script.part.bpmn', 'bpmn:ScriptTask', function(err, result) {
+        importFile('test/fixtures/bpmn/scriptTask-script.part.bpmn', 'bpmn:ScriptTask', function(err, result) {
 
           // then
           expect(result).to.jsonEqual({
@@ -306,7 +302,7 @@ describe('bpmn-moddle - read', function() {
       it('CallActivity#calledElement', function(done) {
 
         // when
-        fromFile('test/fixtures/bpmn/callActivity-calledElement.part.bpmn', 'bpmn:CallActivity', function(err, result) {
+        importFile('test/fixtures/bpmn/callActivity-calledElement.part.bpmn', 'bpmn:CallActivity', function(err, result) {
 
           // then
           expect(result).to.jsonEqual({
@@ -323,7 +319,7 @@ describe('bpmn-moddle - read', function() {
       it('ItemDefinition#structureRef', function(done) {
 
         // when
-        fromFile('test/fixtures/bpmn/itemDefinition-structureRef.part.bpmn', 'bpmn:ItemDefinition', function(err, result) {
+        importFile('test/fixtures/bpmn/itemDefinition-structureRef.part.bpmn', 'bpmn:ItemDefinition', function(err, result) {
 
           // then
           expect(result).to.jsonEqual({
@@ -340,7 +336,7 @@ describe('bpmn-moddle - read', function() {
       it('Operation#implementationRef', function(done) {
 
         // when
-        fromFile('test/fixtures/bpmn/operation-implementationRef.part.bpmn', 'bpmn:Operation', function(err, result) {
+        importFile('test/fixtures/bpmn/operation-implementationRef.part.bpmn', 'bpmn:Operation', function(err, result) {
 
           // then
           expect(result).to.jsonEqual({
@@ -357,7 +353,7 @@ describe('bpmn-moddle - read', function() {
       it('Interface#implementationRef', function(done) {
 
         // when
-        fromFile('test/fixtures/bpmn/interface-implementationRef.part.bpmn', 'bpmn:Interface', function(err, result) {
+        importFile('test/fixtures/bpmn/interface-implementationRef.part.bpmn', 'bpmn:Interface', function(err, result) {
 
           // then
           expect(result).to.jsonEqual({
@@ -374,7 +370,7 @@ describe('bpmn-moddle - read', function() {
       it('Lane#childLaneSet', function(done) {
 
         // when
-        fromFile('test/fixtures/bpmn/lane-childLaneSets.part.bpmn', 'bpmn:Lane', function(err, result) {
+        importFile('test/fixtures/bpmn/lane-childLaneSets.part.bpmn', 'bpmn:Lane', function(err, result) {
 
           // then
           expect(result).to.jsonEqual({
@@ -402,7 +398,7 @@ describe('bpmn-moddle - read', function() {
       it('SequenceFlow#conditionExpression', function(done) {
 
         // when
-        fromFile('test/fixtures/bpmn/sequenceFlow-conditionExpression.part.bpmn', 'bpmn:SequenceFlow', function(err, result) {
+        importFile('test/fixtures/bpmn/sequenceFlow-conditionExpression.part.bpmn', 'bpmn:SequenceFlow', function(err, result) {
 
           if (err) {
             return done(err);
@@ -426,7 +422,7 @@ describe('bpmn-moddle - read', function() {
       it('Category', function(done) {
 
         // when
-        fromFile('test/fixtures/bpmn/category.bpmn', function(err, result) {
+        importFile('test/fixtures/bpmn/category.bpmn', function(err, result) {
 
           if (err) {
             return done(err);
@@ -436,13 +432,13 @@ describe('bpmn-moddle - read', function() {
 
           // then
           expect(category).to.jsonEqual({
-            $type: "bpmn:Category",
-            id: "sid-ccc7e63e-916e-4bd0-a9f0-98cbff749195",
+            $type: 'bpmn:Category',
+            id: 'sid-ccc7e63e-916e-4bd0-a9f0-98cbff749195',
             categoryValue: [
               {
-                $type: "bpmn:CategoryValue",
-                id: "sid-afd7e63e-916e-4bd0-a9f0-98cbff749193",
-                value: "group with label"
+                $type: 'bpmn:CategoryValue',
+                id: 'sid-afd7e63e-916e-4bd0-a9f0-98cbff749193',
+                value: 'group with label'
               }
             ]
           });
@@ -455,7 +451,7 @@ describe('bpmn-moddle - read', function() {
       it('MultiInstanceLoopCharacteristics#completionCondition', function(done) {
 
         // when
-        fromFile('test/fixtures/bpmn/multiInstanceLoopCharacteristics-completionCondition.part.bpmn', 'bpmn:MultiInstanceLoopCharacteristics', function(err, result) {
+        importFile('test/fixtures/bpmn/multiInstanceLoopCharacteristics-completionCondition.part.bpmn', 'bpmn:MultiInstanceLoopCharacteristics', function(err, result) {
 
           if (err) {
             return done(err);
@@ -478,7 +474,7 @@ describe('bpmn-moddle - read', function() {
       it('Operation#messageRef', function(done) {
 
         // when
-        fromFile('test/fixtures/bpmn/operation-messageRef.bpmn', 'bpmn:Definitions', function(err, result, context) {
+        importFile('test/fixtures/bpmn/operation-messageRef.bpmn', 'bpmn:Definitions', function(err, result, context) {
 
           var inMessage = {
             property: 'bpmn:inMessageRef',
@@ -509,7 +505,7 @@ describe('bpmn-moddle - read', function() {
       it('Extensions', function(done) {
 
         // when
-        fromFile('test/fixtures/bpmn/di/bpmnDiagram-extension.part.bpmn', 'bpmndi:BPMNDiagram', function(err, result) {
+        importFile('test/fixtures/bpmn/di/bpmnDiagram-extension.part.bpmn', 'bpmndi:BPMNDiagram', function(err, result) {
 
           if (err) {
             return done(err);
@@ -568,7 +564,7 @@ describe('bpmn-moddle - read', function() {
         // given
 
         // when
-        fromFile('test/fixtures/bpmn/di/bpmnShape.part.bpmn', 'bpmndi:BPMNShape', function(err, result) {
+        importFile('test/fixtures/bpmn/di/bpmnShape.part.bpmn', 'bpmndi:BPMNShape', function(err, result) {
 
           var expected = {
             $type: 'bpmndi:BPMNShape',
@@ -590,7 +586,7 @@ describe('bpmn-moddle - read', function() {
         // given
 
         // when
-        fromFile('test/fixtures/bpmn/di/bpmnEdge-waypoint.part.bpmn', 'bpmndi:BPMNEdge', function(err, result) {
+        importFile('test/fixtures/bpmn/di/bpmnEdge-waypoint.part.bpmn', 'bpmndi:BPMNEdge', function(err, result) {
 
           // then
           expect(result).to.jsonEqual({
@@ -612,7 +608,7 @@ describe('bpmn-moddle - read', function() {
         // given
 
         // when
-        fromFile('test/fixtures/bpmn/di/bpmnEdge.part.bpmn', 'bpmndi:BPMNEdge', function(err, result) {
+        importFile('test/fixtures/bpmn/di/bpmnEdge.part.bpmn', 'bpmndi:BPMNEdge', function(err, result) {
 
           var expected = {
             $type: 'bpmndi:BPMNEdge',
@@ -636,7 +632,7 @@ describe('bpmn-moddle - read', function() {
         // given
 
         // when
-        fromFile('test/fixtures/bpmn/di/bpmnDiagram.part.bpmn', 'bpmndi:BPMNDiagram', function(err, result) {
+        importFile('test/fixtures/bpmn/di/bpmnDiagram.part.bpmn', 'bpmndi:BPMNDiagram', function(err, result) {
 
           var expected = {
             $type: 'bpmndi:BPMNDiagram',
@@ -751,7 +747,7 @@ describe('bpmn-moddle - read', function() {
       read(xml, 'bpmn:SequenceFlow', function(err, result, context) {
 
         // then
-        expect(result.$attrs['foo:bar']).to.eql("BAR");
+        expect(result.$attrs['foo:bar']).to.eql('BAR');
 
         done(err);
       });
@@ -762,7 +758,7 @@ describe('bpmn-moddle - read', function() {
     it('elements via bpmn:extensionElements', function(done) {
 
       // when
-      fromFile('test/fixtures/bpmn/extension-elements.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/extension-elements.bpmn', function(err, result) {
 
         expect(result).to.jsonEqual({
           $type: 'bpmn:Definitions',
@@ -792,7 +788,7 @@ describe('bpmn-moddle - read', function() {
       // given
 
       // when
-      fromFile('test/fixtures/bpmn/empty-definitions.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/empty-definitions.bpmn', function(err, result) {
 
         var expected = {
           $type: 'bpmn:Definitions',
@@ -813,7 +809,7 @@ describe('bpmn-moddle - read', function() {
       // given
 
       // when
-      fromFile('test/fixtures/bpmn/empty-definitions-default-ns.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/empty-definitions-default-ns.bpmn', function(err, result) {
 
         var expected = {
           $type: 'bpmn:Definitions',
@@ -834,7 +830,7 @@ describe('bpmn-moddle - read', function() {
       // given
 
       // when
-      fromFile('test/fixtures/bpmn/simple.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/simple.bpmn', function(err, result) {
 
         // then
         expect(result.id).to.equal('simple');
@@ -849,7 +845,7 @@ describe('bpmn-moddle - read', function() {
       // given
 
       // when
-      fromFile('test/fixtures/bpmn/simple-default-ns.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/simple-default-ns.bpmn', function(err, result) {
 
         expect(result.id).to.equal('simple');
 
@@ -865,7 +861,7 @@ describe('bpmn-moddle - read', function() {
     it('when importing non-xml text', function(done) {
 
       // when
-      fromFile('test/fixtures/bpmn/error/no-xml.txt', function(err, result) {
+      importFile('test/fixtures/bpmn/error/no-xml.txt', function(err, result) {
 
         expect(err).to.exist;
 
@@ -877,7 +873,7 @@ describe('bpmn-moddle - read', function() {
     it('when importing binary', function(done) {
 
       // when
-      fromFile('test/fixtures/bpmn/error/binary.png', function(err, result) {
+      importFile('test/fixtures/bpmn/error/binary.png', function(err, result) {
 
         expect(err).to.exist;
 
@@ -890,7 +886,7 @@ describe('bpmn-moddle - read', function() {
     it('when importing bpmn:Extension (missing definition)', function(done) {
 
       // when
-      fromFile('test/fixtures/bpmn/error/extension-definition-missing.bpmn', function(err, result, context) {
+      importFile('test/fixtures/bpmn/error/extension-definition-missing.bpmn', function(err, result, context) {
 
         var warnings = context.warnings;
 
@@ -909,7 +905,7 @@ describe('bpmn-moddle - read', function() {
     it('when importing invalid bpmn', function(done) {
 
       // when
-      fromFile('test/fixtures/bpmn/error/undeclared-ns-child.bpmn', function(err, result, context) {
+      importFile('test/fixtures/bpmn/error/undeclared-ns-child.bpmn', function(err, result, context) {
 
         var warnings = context.warnings;
 
@@ -924,7 +920,7 @@ describe('bpmn-moddle - read', function() {
     it('when importing invalid categoryValue / reference', function(done) {
 
       // when
-      fromFile('test/fixtures/bpmn/error/categoryValue.bpmn', function(err, result, context) {
+      importFile('test/fixtures/bpmn/error/categoryValue.bpmn', function(err, result, context) {
 
         var warnings = context.warnings;
 
@@ -954,7 +950,7 @@ describe('bpmn-moddle - read', function() {
     it('when importing valid bpmn / unrecognized element', function(done) {
 
       // when
-      fromFile('test/fixtures/bpmn/error/unrecognized-child.bpmn', function(err, result, context) {
+      importFile('test/fixtures/bpmn/error/unrecognized-child.bpmn', function(err, result, context) {
 
         var warnings = context.warnings;
 
@@ -969,7 +965,7 @@ describe('bpmn-moddle - read', function() {
     it('when importing duplicate ids', function(done) {
 
       // when
-      fromFile('test/fixtures/bpmn/error/duplicate-ids.bpmn', function(err, result, context) {
+      importFile('test/fixtures/bpmn/error/duplicate-ids.bpmn', function(err, result, context) {
 
         var warnings = context.warnings;
 

@@ -1,12 +1,11 @@
-'use strict';
-
-var Builder = require('./builder');
+import Builder from './builder';
 
 
 function makeStringRef(desc) {
   desc.type = 'String';
   delete desc.isReference;
 }
+
 
 describe('moddle BPMN 2.0 json', function() {
 
@@ -242,17 +241,17 @@ describe('moddle BPMN 2.0 json', function() {
         builder.alter('Process', function(desc) {
 
           desc.properties.push({
-            "name": "laneSets",
-            "type": "LaneSet",
-            "isMany": true,
-            "replaces": "FlowElementsContainer#laneSets"
+            'name': 'laneSets',
+            'type': 'LaneSet',
+            'isMany': true,
+            'replaces': 'FlowElementsContainer#laneSets'
           });
 
           desc.properties.push({
-            "name": "flowElements",
-            "type": "FlowElement",
-            "isMany": true,
-            "replaces": "FlowElementsContainer#flowElements"
+            'name': 'flowElements',
+            'type': 'FlowElement',
+            'isMany': true,
+            'replaces': 'FlowElementsContainer#flowElements'
           });
 
           builder.reorderProperties(desc, [

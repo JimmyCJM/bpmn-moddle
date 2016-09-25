@@ -1,25 +1,22 @@
-'use strict';
+import { createModdle, readFile } from '../helper';
 
-var Helper = require('../helper');
+import droolsPackage from '../fixtures/json/model/drools';
 
-var droolsPackage = require('../fixtures/json/model/drools');
-
-var isFunction = require('lodash/isFunction'),
-    assign = require('lodash/assign');
+import { isFunction, assign } from 'lodash';
 
 
 describe('bpmn-moddle - integration', function() {
 
   describe('drools:import element', function() {
 
-    var moddle = Helper.createModdle({ drools: droolsPackage });
+    var moddle = createModdle({ drools: droolsPackage });
 
     function read(xml, root, opts, callback) {
       return moddle.fromXML(xml, root, opts, callback);
     }
 
-    function fromFile(file, root, opts, callback) {
-      var contents = Helper.readFile('test/fixtures/bpmn/' + file);
+    function importFile(file, root, opts, callback) {
+      var contents = readFile('test/fixtures/bpmn/' + file);
       return read(contents, root, opts, callback);
     }
 
@@ -39,7 +36,7 @@ describe('bpmn-moddle - integration', function() {
     it('should import', function(done) {
 
       // when
-      fromFile('extension/drools.part.bpmn', 'bpmn:Process', function(err, result) {
+      importFile('extension/drools.part.bpmn', 'bpmn:Process', function(err, result) {
 
         var expected = {
           $type: 'bpmn:Process',

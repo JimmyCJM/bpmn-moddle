@@ -1,18 +1,18 @@
-'use strict';
+import {
+  fromFile,
+  toXML,
+  validate
+} from '../../xml-helper';
 
-var Helper = require('../../helper'),
-    XMLHelper = require('../../xml-helper');
-
-var toXML = XMLHelper.toXML,
-    validate = XMLHelper.validate;
+import { createModdle } from '../../helper';
 
 
 describe('bpmn-moddle - roundtrip', function() {
 
-  var moddle = Helper.createModdle();
+  var moddle = createModdle();
 
-  function fromFile(file, done) {
-    XMLHelper.fromFile(moddle, file, done);
+  function importFile(file, done) {
+    fromFile(moddle, file, done);
   }
 
 
@@ -139,7 +139,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('extension attributes', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/extension-attributes.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/extension-attributes.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -156,7 +156,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('multi instance loop characteristics', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/multiInstanceLoopCharacteristics.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/multiInstanceLoopCharacteristics.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -173,7 +173,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('Expression without xsi:type', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/expression-plain.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/expression-plain.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -200,7 +200,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('documentation / extensionElements order', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/documentation-extension-elements.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/documentation-extension-elements.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -217,7 +217,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('activity children order', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/activity-children.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/activity-children.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -234,7 +234,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('lane children order', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/lane-children.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/lane-children.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -251,7 +251,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('conversation children order', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/conversation-children.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/conversation-children.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -268,7 +268,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('process children order', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/process-children.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/process-children.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -285,7 +285,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('definitions children order', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/definitions-children.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/definitions-children.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -302,7 +302,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('ioSpecification children order', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/inputOutputSpecification-children.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/inputOutputSpecification-children.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -319,7 +319,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('Participant#interfaceRef', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/participant-interfaceRef.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/participant-interfaceRef.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -336,7 +336,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('ResourceRole#resourceRef', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/potentialOwner.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/potentialOwner.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -353,7 +353,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('Operation#messageRef', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/operation-messageRef.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/operation-messageRef.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -374,7 +374,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('di extensions', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/di-extension.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/di-extension.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -396,7 +396,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('complex processElement / extensionElements', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/complex.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/complex.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -413,7 +413,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('category', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/category.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/category.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -435,7 +435,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('simple processElement', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/simple.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/simple.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -452,7 +452,7 @@ describe('bpmn-moddle - roundtrip', function() {
     it('xsi:type', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/xsi-type.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/xsi-type.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -467,7 +467,7 @@ describe('bpmn-moddle - roundtrip', function() {
 
     it('colors', function(done) {
 
-      fromFile('test/fixtures/bpmn/example-colors.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/example-colors.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -491,7 +491,7 @@ describe('bpmn-moddle - roundtrip', function() {
       it('complex processElement', function(done) {
 
         // given
-        fromFile('test/fixtures/bpmn/vendor/signavio-complex-no-extensions.bpmn', function(err, result) {
+        importFile('test/fixtures/bpmn/vendor/signavio-complex-no-extensions.bpmn', function(err, result) {
 
           if (err) {
             return done(err);
@@ -512,7 +512,7 @@ describe('bpmn-moddle - roundtrip', function() {
       it('event definitions', function(done) {
 
         // given
-        fromFile('test/fixtures/bpmn/vendor/yaoqiang-event-definitions.bpmn', function(err, result, context) {
+        importFile('test/fixtures/bpmn/vendor/yaoqiang-event-definitions.bpmn', function(err, result, context) {
 
           if (err) {
             return done(err);

@@ -1,12 +1,9 @@
-'use strict';
+import { createModdle } from '../helper';
 
-var Helper = require('../helper');
-
-var moddle = Helper.createModdle();
+const moddle = createModdle();
 
 
 describe('bpmn-moddle', function() {
-
 
   describe('parsing', function() {
 
