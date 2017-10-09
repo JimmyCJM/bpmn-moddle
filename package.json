@@ -4,7 +4,7 @@
   "description": "A moddle wrapper for BPMN 2.0",
   "scripts": {
     "all": "npm run lint && npm run test && npm run bundle",
-    "bundle": "webpack -p",
+    "bundle": "NODE_ENV=production webpack",
     "dev": "npm run test -- --watch",
     "lint": "grunt lint",
     "prepare": "npm run bundle",
