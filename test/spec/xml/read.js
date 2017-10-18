@@ -934,13 +934,13 @@ describe('bpmn-moddle - read', function() {
         var unresolvableReferenceWarning = warnings[1];
 
         expect(invalidElementWarning.message).to.eql(
-            'unparsable content <categoryValue> detected\n\t' +
-              'line: 2\n\t' +
-              'column: 89\n\t' +
-              'nested error: unrecognized element <bpmn:categoryValue>');
+          'unparsable content <categoryValue> detected\n\t' +
+            'line: 2\n\t' +
+            'column: 89\n\t' +
+            'nested error: unrecognized element <bpmn:categoryValue>');
 
         expect(unresolvableReferenceWarning.message).to.eql(
-            'unresolved reference <sid-afd7e63e-916e-4bd0-a9f0-98cbff749193>');
+          'unresolved reference <sid-afd7e63e-916e-4bd0-a9f0-98cbff749193>');
 
         done();
       });
