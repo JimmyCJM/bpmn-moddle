@@ -1,3 +1,7 @@
+require('babel-register')({
+  ignore: /node_modules\/(?!(lodash-es|moddle|moddle-xml|cmof-parser))/
+});
+
 var chai = require('chai');
 var matchers = require('./matchers');
 

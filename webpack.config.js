@@ -4,7 +4,7 @@ var webpack = require('webpack');
 
 var LodashPlugin = require('lodash-webpack-plugin');
 
-var config = {
+module.exports = {
   entry: './lib/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -20,8 +20,7 @@ var config = {
   module: {
     rules: [{
       use: 'babel-loader',
-      test: /\.js$/,
-      exclude: /node_modules/
+      test: /\.js$/
     }]
   },
   plugins: [
@@ -32,15 +31,3 @@ var config = {
   ],
   devtool: 'source-map'
 };
-
-var env = process.env.NODE_ENV;
-
-if (env === 'production') {
-  config.resolve = {
-    alias: {
-      lodash: 'lodash-es'
-    }
-  };
-}
-
-module.exports = config;
