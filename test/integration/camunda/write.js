@@ -1,4 +1,4 @@
-import { assign, isFunction } from 'lodash';
+import { assign, isFunction } from 'lodash-es';
 
 import { createModdle } from '../../helper';
 

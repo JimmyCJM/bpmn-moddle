@@ -1,7 +1,7 @@
 import {
   assign,
   isFunction
-} from 'lodash';
+} from 'lodash-es';
 
 import { createModdle } from '../../helper';
 

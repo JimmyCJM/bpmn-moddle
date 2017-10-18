@@ -3,7 +3,7 @@ import {
   assign,
   find,
   forEach
-} from 'lodash';
+} from 'lodash-es';
 
 import { writeFileSync } from 'fs';
 

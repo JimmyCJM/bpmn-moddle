@@ -1,9 +1,11 @@
 'use strict';
 
-var isFunction = require('lodash/isFunction'),
-    assign = require('lodash/assign');
+import {
+  isFunction,
+  assign
+} from 'lodash-es';
 
-var Helper = require('../../helper');
+import Helper from '../../helper';
 
 
 describe('bpmn-moddle - expr', function() {

@@ -2,7 +2,7 @@ import { createModdle, readFile } from '../helper';
 
 import droolsPackage from '../fixtures/json/model/drools';
 
-import { isFunction, assign } from 'lodash';
+import { isFunction, assign } from 'lodash-es';
 
 
 describe('bpmn-moddle - integration', function() {
