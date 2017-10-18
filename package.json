@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "lodash-es": "^4.17.4",
-    "moddle": "^1.0.0",
-    "moddle-xml": "^1.1.0"
+    "moddle": "github:bpmn-io/moddle#ES2015",
+    "moddle-xml": "github:bpmn-io/moddle-xml#ES2015"
   }
 }
