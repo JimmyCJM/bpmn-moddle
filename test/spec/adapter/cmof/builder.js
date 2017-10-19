@@ -1,9 +1,11 @@
+import { assign } from 'min-dash/lib/object';
+
+import { isFunction } from 'min-dash/lib/lang';
+
 import {
-  isFunction,
-  assign,
   find,
   forEach
-} from 'lodash-es';
+} from 'min-dash/lib/collection';
 
 import { writeFileSync } from 'fs';
 

@@ -1,4 +1,6 @@
-import { assign, isFunction } from 'lodash-es';
+import { assign } from 'min-dash/lib/object';
+
+import { isFunction } from 'min-dash/lib/lang';
 
 import { createModdle } from '../../helper';
 
